@@ -18,6 +18,9 @@ import {
 } from 'react-native';
 import Lottie from 'lottie-react-native';
 
+import { MainButton } from './src/components';
+import { COLORS, SIZES } from './src/constants';
+
 function App(): JSX.Element {
 
   return (
@@ -26,6 +29,26 @@ function App(): JSX.Element {
       <Text style={styles.sectionTitle2}>Test</Text>
       <Text style={styles.sectionTitle3}>Test</Text>
       <Lottie source={require('./src/assets/animations/qr-scan.json')} autoPlay loop />
+      <MainButton
+        contentContainerStyle={{
+          height: 50,
+          marginTop: SIZES.base,
+          backgroundColor: null
+        }}
+        label="Already have an account"
+        labelStyle={{
+          color: COLORS.primary
+        }}
+        onPress={() => console.log('test')}
+      />
+      <MainButton
+        contentContainerStyle={{
+          height: 50,
+          borderRadius: SIZES.radius
+        }}
+        label="Get Started"
+        onPress={() => console.log('test2')}
+      />
     </View>
   );
 }
