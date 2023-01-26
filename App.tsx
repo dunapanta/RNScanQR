@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import type { PropsWithChildren } from 'react';
+import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -18,33 +18,25 @@ import {
 } from 'react-native';
 import Lottie from 'lottie-react-native';
 
-import { MainButton } from './src/components';
-import { COLORS, SIZES } from './src/constants';
+import {MainButton} from './src/components';
+import {COLORS, SIZES, } from './src/constants';
 
 function App(): JSX.Element {
-
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{flex: 1, padding: SIZES.padding}}>
       <Text style={styles.sectionTitle}>Test</Text>
-      <Text style={styles.sectionTitle2}>Test</Text>
-      <Text style={styles.sectionTitle3}>Test</Text>
-      <Lottie source={require('./src/assets/animations/qr-scan.json')} autoPlay loop />
+
+      <View style={{flex: 1}}>
+        <Lottie
+          source={require('./src/assets/animations/qr-scan.json')}
+          autoPlay
+          loop
+        />
+      </View>
       <MainButton
         contentContainerStyle={{
           height: 50,
-          marginTop: SIZES.base,
-          backgroundColor: null
-        }}
-        label="Already have an account"
-        labelStyle={{
-          color: COLORS.primary
-        }}
-        onPress={() => console.log('test')}
-      />
-      <MainButton
-        contentContainerStyle={{
-          height: 50,
-          borderRadius: SIZES.radius
+          borderRadius: SIZES.radius,
         }}
         label="Get Started"
         onPress={() => console.log('test2')}
@@ -60,7 +52,6 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 24,
-
     color: 'red',
     fontFamily: 'Poppins-Bold',
   },
