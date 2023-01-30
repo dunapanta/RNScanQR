@@ -1,7 +1,7 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 
-import {WelcomeScreen} from './src/screens';
+import {TestScreen, WelcomeScreen} from './src/screens';
 
 const Stack = createNativeStackNavigator();
 
@@ -13,6 +13,7 @@ function App(): JSX.Element {
           headerShown: false,
         }}>
         <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+        <Stack.Screen name="TestScreen" component={TestScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -4,7 +4,7 @@ import Lottie from 'lottie-react-native';
 import {MainButton} from '../components';
 import {COLORS, SIZES} from '../constants';
 
-export const WelcomeScreen = (): JSX.Element => {
+export const WelcomeScreen = ({navigation}: any): JSX.Element => {
   return (
     <View style={{flex: 1, padding: SIZES.padding}}>
       <Text style={styles.sectionTitle}>Test</Text>
@@ -22,7 +22,7 @@ export const WelcomeScreen = (): JSX.Element => {
           borderRadius: SIZES.radius,
         }}
         label="Get Started"
-        onPress={() => console.log('test2')}
+        onPress={() => navigation.navigate('TestScreen')}
       />
     </View>
   );
