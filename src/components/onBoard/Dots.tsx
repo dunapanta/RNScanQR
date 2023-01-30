@@ -1,6 +1,6 @@
 import {Animated, View} from 'react-native';
 
-import {constants, SIZES} from '../../constants';
+import {COLORS, constants, SIZES} from '../../constants';
 
 interface Props {
   scrollX: Animated.Value;
@@ -18,6 +18,11 @@ export const Dots = ({scrollX}: Props) => {
           justifyContent: 'center',
         }}>
         {constants.walkthrough.map((item, index) => {
+          const dotColor = dotPosition.interpolate({
+            inputRange: [index - 1, index, index + 1],
+            outputRange: [COLORS.dark08, COLORS.primary, COLORS.dark08],
+            extrapolate: 'clamp',
+          });
           return (
             <Animated.View
               key={`dot-${index}`}
@@ -26,7 +31,7 @@ export const Dots = ({scrollX}: Props) => {
                 marginHorizontal: 6,
                 width: 10,
                 height: 10,
-                backgroundColor: 'black',
+                backgroundColor: dotColor,
               }}></Animated.View>
           );
         })}
