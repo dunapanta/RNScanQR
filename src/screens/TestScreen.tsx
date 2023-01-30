@@ -2,11 +2,12 @@ import {useRef} from 'react';
 import {Animated, Text, View} from 'react-native';
 
 import {COLORS, constants, FONTS, SIZES} from '../constants';
-import {Footer} from '../components/onBoard';
+import {Animation1, Footer} from '../components/onBoard';
 import TextButton from '../components/shared/TextButton';
 
 export const TestScreen = () => {
   const scrollX = useRef(new Animated.Value(0)).current;
+
   return (
     <View style={{flex: 1, backgroundColor: COLORS.light}}>
       <Animated.FlatList
@@ -25,8 +26,8 @@ export const TestScreen = () => {
           return (
             <View style={{width: SIZES.width, justifyContent: 'center'}}>
               {/* Walkthrough Images */}
-              <View style={{flex: 1}}>
-                <Text>Walkthrough Images</Text>
+              <View style={{flex: 1, justifyContent: 'center'}}>
+                {index === 0 && <Animation1 />}
               </View>
               {/* Title & description */}
               <View
@@ -48,7 +49,6 @@ export const TestScreen = () => {
                 </Text>
 
                 <Footer scrollX={scrollX} />
-
               </View>
             </View>
           );
