@@ -1,6 +1,6 @@
 import React from 'react';
 import {TouchableOpacity, Text} from 'react-native';
-import {FONTS, COLORS} from '../constants';
+import {FONTS, COLORS} from '../../constants';
 
 interface MainButtonProps {
   contentContainerStyle?: any;

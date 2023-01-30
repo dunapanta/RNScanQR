@@ -1,7 +1,7 @@
 import {StyleSheet, Text, View} from 'react-native';
 import Lottie from 'lottie-react-native';
 
-import {MainButton} from '../components';
+import {MainButton} from '../components/shared';
 import {COLORS, SIZES} from '../constants';
 
 export const WelcomeScreen = ({navigation}: any): JSX.Element => {

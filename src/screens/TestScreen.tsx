@@ -1,6 +1,8 @@
 import {useRef} from 'react';
 import {Animated, Text, View} from 'react-native';
-import {COLORS, constants, SIZES} from '../constants';
+
+import {COLORS, constants, FONTS, SIZES} from '../constants';
+import {Dots} from '../components/onBoard';
 
 export const TestScreen = () => {
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -21,7 +23,31 @@ export const TestScreen = () => {
         renderItem={({item, index}) => {
           return (
             <View style={{width: SIZES.width, justifyContent: 'center'}}>
-              <Text>{item.title}</Text>
+              {/* Walkthrough Images */}
+              <View style={{flex: 1}}>
+                <Text>Walkthrough Images</Text>
+              </View>
+              {/* Title & description */}
+              <View
+                style={{
+                  height: SIZES.height * 0.35,
+                  alignItems: 'center',
+                  justifyContent: 'flex-start',
+                  paddingHorizontal: SIZES.padding,
+                }}>
+                <Text style={{...FONTS.h1}}>{item.title}</Text>
+                <Text
+                  style={{
+                    marginTop: SIZES.radius,
+                    textAlign: 'center',
+                    ...FONTS.body3,
+                    color: COLORS.grey,
+                  }}>
+                  {item.sub_title}
+                </Text>
+
+                <Dots scrollX={scrollX} />
+              </View>
             </View>
           );
         }}
