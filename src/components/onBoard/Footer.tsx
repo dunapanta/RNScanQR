@@ -1,15 +1,16 @@
 import {Animated, View} from 'react-native';
 
-import {COLORS, constants, SIZES} from '../../constants';
+import {COLORS, constants, FONTS, SIZES} from '../../constants';
+import TextButton from '../shared/TextButton';
 
 interface Props {
   scrollX: Animated.Value;
 }
 
-export const Dots = ({scrollX}: Props) => {
+export const Footer = ({scrollX}: Props) => {
   //Calculate the position of the dots
   const dotPosition = Animated.divide(scrollX, SIZES.width);
-  const Points = () => {
+  const Dots = () => {
     return (
       <View
         style={{
@@ -51,7 +52,43 @@ export const Dots = ({scrollX}: Props) => {
         paddingHorizontal: SIZES.padding,
         paddingVertical: SIZES.height > 700 ? SIZES.padding : 20,
       }}>
-      <Points />
+      <Dots />
+
+      {/* Buttons */}
+      <View
+        style={{
+          flexDirection: 'row',
+          height: 55,
+        }}>
+        <TextButton
+          label="Siguiente"
+          contentContainerStyle={{
+            flex: 1,
+            borderRadius: SIZES.radius,
+            backgroundColor: COLORS.lightGrey,
+            borderWidth: 0.5,
+            borderColor: COLORS.dark60,
+          }}
+          labelStyle={{
+            color: COLORS.primary,
+            ...FONTS.h3,
+          }}
+          onPress={() => console.log('Siguiente')}
+        />
+        <TextButton
+          label="Saltar"
+          contentContainerStyle={{
+            flex: 1,
+            marginLeft: SIZES.radius,
+            borderRadius: SIZES.radius,
+            backgroundColor: COLORS.primary,
+          }}
+          labelStyle={{
+            ...FONTS.h3,
+          }}
+          onPress={() => console.log('Saltar')}
+        />
+      </View>
     </View>
   );
 };

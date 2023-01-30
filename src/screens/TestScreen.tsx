@@ -2,7 +2,8 @@ import {useRef} from 'react';
 import {Animated, Text, View} from 'react-native';
 
 import {COLORS, constants, FONTS, SIZES} from '../constants';
-import {Dots} from '../components/onBoard';
+import {Footer} from '../components/onBoard';
+import TextButton from '../components/shared/TextButton';
 
 export const TestScreen = () => {
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -46,7 +47,8 @@ export const TestScreen = () => {
                   {item.sub_title}
                 </Text>
 
-                <Dots scrollX={scrollX} />
+                <Footer scrollX={scrollX} />
+
               </View>
             </View>
           );

@@ -26,6 +26,7 @@ const TextButton = ({
         ...contentContainerStyle,
       }}
       disabled={disabled}
+      activeOpacity={0.8}
       onPress={onPress}>
       <Text style={{color: COLORS.secondary, ...FONTS.h3, ...labelStyle}}>
         {label}
