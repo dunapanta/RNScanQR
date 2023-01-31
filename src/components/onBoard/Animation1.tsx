@@ -1,5 +1,5 @@
 import {useRef, useState} from 'react';
-import {View, Image, FlatList, Text,} from 'react-native';
+import {View, Image, FlatList, Text} from 'react-native';
 import {constants} from '../../constants';
 //import {FlatList} from 'react-native-gesture-handler';
 
@@ -23,14 +23,15 @@ export const Animation1 = () => {
   const row1FlatListRef = useRef<any>();
   const row2FlatListRef = useRef<any>();
   return (
-    <View style={{backgroundColor: "blue", flexDirection: 'row',}}>
+    <View>
       {/* Slider 1 */}
 
       <FlatList
         ref={row1FlatListRef}
         decelerationRate="fast"
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
+        horizontal={false}
+        //showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
         keyExtractor={(_, index) => `Slider1_${index}`}
         data={row1Images}
         renderItem={({item}) => {

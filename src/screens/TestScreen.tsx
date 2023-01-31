@@ -26,7 +26,7 @@ export const TestScreen = () => {
           return (
             <View style={{width: SIZES.width, justifyContent: 'center'}}>
               {/* Walkthrough Images */}
-              <View style={{flex: 1, justifyContent: 'center'}}>
+              <View style={{flex: 1, flexDirection: "row",justifyContent: 'center'}}>
                 {index === 0 && <Animation1 />}
               </View>
               {/* Title & description */}
