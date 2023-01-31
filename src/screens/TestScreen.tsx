@@ -3,7 +3,6 @@ import {Animated, Text, View} from 'react-native';
 
 import {COLORS, constants, FONTS, SIZES} from '../constants';
 import {Animation1, Footer} from '../components/onBoard';
-import TextButton from '../components/shared/TextButton';
 
 export const TestScreen = () => {
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -26,7 +25,7 @@ export const TestScreen = () => {
           return (
             <View style={{width: SIZES.width, justifyContent: 'center'}}>
               {/* Walkthrough Images */}
-              <View style={{flex: 1, flexDirection: "row",justifyContent: 'center'}}>
+              <View style={{flex: 1, flexDirection: "row", justifyContent: 'center'}}>
                 {index === 0 && <Animation1 />}
               </View>
               {/* Title & description */}
