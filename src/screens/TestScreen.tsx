@@ -1,10 +1,17 @@
-import {useRef} from 'react';
+import {useRef, useState} from 'react';
 import {Animated, Text, View} from 'react-native';
 
 import {COLORS, constants, FONTS, SIZES} from '../constants';
-import {Animation1, Footer} from '../components/onBoard';
+import {Animation1, Animation2, Footer} from '../components/onBoard';
 
 export const TestScreen = () => {
+  //Animation 2
+  const [animation2, setAnimation2] = useState(false);
+  const onViewChangeRef = useRef(({viewableItems, changed}) => {
+    if (viewableItems[0].index === 1) {
+      setAnimation2(true);
+    }
+  });
   const scrollX = useRef(new Animated.Value(0)).current;
 
   return (
@@ -17,6 +24,7 @@ export const TestScreen = () => {
         decelerationRate="fast"
         showsHorizontalScrollIndicator={false}
         scrollEventThrottle={16}
+        onViewableItemsChanged={onViewChangeRef.current}
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {x: scrollX}}}],
           {useNativeDriver: false},
@@ -25,8 +33,14 @@ export const TestScreen = () => {
           return (
             <View style={{width: SIZES.width, justifyContent: 'center'}}>
               {/* Walkthrough Images */}
-              <View style={{flex: 1, flexDirection: "row", justifyContent: 'center'}}>
+              <View
+                style={
+                  index === 0
+                    ? {flex: 1, flexDirection: 'row', justifyContent: 'center'}
+                    : {flex: 1, justifyContent: 'center'}
+                }>
                 {index === 0 && <Animation1 />}
+                {index === 1 && <Animation2 animate={animation2} />}
               </View>
               {/* Title & description */}
               <View
@@ -36,7 +50,7 @@ export const TestScreen = () => {
                   justifyContent: 'flex-start',
                   paddingHorizontal: SIZES.padding,
                 }}>
-                <Text style={{...FONTS.h1}}>{item.title}</Text>
+                <Text style={{...FONTS.h1, marginTop: 30}}>{item.title}</Text>
                 <Text
                   style={{
                     marginTop: SIZES.radius,
