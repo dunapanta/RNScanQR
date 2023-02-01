@@ -52,6 +52,27 @@ export const Animation2 = ({animate}: Props) => {
         top: '15%',
         left: '55%',
       });
+    } else {
+      motiImage1.animateTo({
+        top: '30%',
+        left: '25%',
+      });
+      motiImage2.animateTo({
+        top: '45%',
+        left: '15%',
+      });
+      motiImage3.animateTo({
+        top: '58%',
+        left: '25%',
+      });
+      motiImage4.animateTo({
+        top: '61%',
+        left: '40%',
+      });
+      motiImage5.animateTo({
+        top: '27%',
+        left: '50%',
+      });
     }
   }, [animate]);
 

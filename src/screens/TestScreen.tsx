@@ -10,6 +10,8 @@ export const TestScreen = () => {
   const onViewChangeRef = useRef(({viewableItems, changed}) => {
     if (viewableItems[0].index === 1) {
       setAnimation2(true);
+    } else {
+      setAnimation2(false);
     }
   });
   const scrollX = useRef(new Animated.Value(0)).current;
