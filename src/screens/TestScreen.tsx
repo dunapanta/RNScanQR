@@ -3,8 +3,9 @@ import {Animated, Text, View} from 'react-native';
 
 import {COLORS, constants, FONTS, SIZES} from '../constants';
 import {Animation1, Animation2, Footer} from '../components/onBoard';
+import TextButton from '../components/shared/TextButton';
 
-export const TestScreen = () => {
+export const TestScreen = ({navigation}: any) => {
   //Animation 2
   const [animation2, setAnimation2] = useState(false);
   const onViewChangeRef = useRef(({viewableItems, changed}) => {
@@ -64,6 +65,21 @@ export const TestScreen = () => {
                 </Text>
 
                 <Footer scrollX={scrollX} />
+                {index === constants.walkthrough.length - 1 && (
+                  <TextButton
+                    label="Inicio"
+                    contentContainerStyle={{
+                      flex: 1,
+                      marginLeft: SIZES.radius,
+                      borderRadius: SIZES.radius,
+                      backgroundColor: COLORS.primary,
+                    }}
+                    labelStyle={{
+                      ...FONTS.h3,
+                    }}
+                    onPress={() => navigation.navigate('ScanQRScreen')}
+                  />
+                )}
               </View>
             </View>
           );
