@@ -56,7 +56,7 @@ export const ScanQRScreen = ({navigation}: any) => {
         <Rect
           height="100%"
           width="100%"
-          fill="rgba(0,0,0,0.8)"
+          fill="rgba(0,0,0,0.7)"
           mask="url(#mask)"
         />
 
@@ -67,7 +67,8 @@ export const ScanQRScreen = ({navigation}: any) => {
           width="250"
           height="250"
           strokeWidth="5"
-          stroke="#fff"
+          fill="rgba(0,0,0,0.0)"
+          stroke="#458111"
         />
       </Svg>
     );
