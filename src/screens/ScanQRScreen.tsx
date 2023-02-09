@@ -1,13 +1,35 @@
-import {useCallback, useEffect} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {Linking, View} from 'react-native';
 import TextButton from '../components/shared/TextButton';
 import {Camera, useCameraDevices} from 'react-native-vision-camera';
 import {Svg, Defs, Rect, Mask} from 'react-native-svg';
+import {useScanBarcodes, BarcodeFormat} from 'vision-camera-code-scanner';
 
 export const ScanQRScreen = ({navigation}: any) => {
   //Camera
   const devices = useCameraDevices();
+
+  //Barcode
+  const [barcode, setBarcode] = useState('');
+  const [isScanned, setIsScanned] = useState(false);
+  const [frameProcessor, barcodes] = useScanBarcodes([BarcodeFormat.QR_CODE]);
   const device = devices.back;
+
+  useEffect(() => {
+    toggleActiveState();
+  }, [barcodes]);
+
+  const toggleActiveState = async () => {
+    if (barcodes && barcodes.length > 0 && !isScanned) {
+      setIsScanned(true);
+      barcodes.forEach(async scannedBarcode => {
+        if (scannedBarcode.rawValue && scannedBarcode.rawValue !== '') {
+          setBarcode(scannedBarcode.rawValue);
+          console.log('Barcode: ', scannedBarcode.rawValue);
+        }
+      });
+    }
+  };
 
   useEffect(() => {
     requestCameraPermission();
@@ -37,6 +59,16 @@ export const ScanQRScreen = ({navigation}: any) => {
           fill="rgba(0,0,0,0.8)"
           mask="url(#mask)"
         />
+
+        {/* Frame Border */}
+        <Rect
+          x="18%"
+          y="30%"
+          width="250"
+          height="250"
+          strokeWidth="5"
+          stroke="#fff"
+        />
       </Svg>
     );
   }
@@ -52,6 +84,8 @@ export const ScanQRScreen = ({navigation}: any) => {
             device={device}
             isActive={true}
             enableZoomGesture={true}
+            frameProcessor={frameProcessor}
+            frameProcessorFps={5}
           />
 
           {/* QR CODE */}

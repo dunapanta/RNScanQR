@@ -6,6 +6,7 @@ import {
   TestScreen,
   WelcomeScreen,
 } from './src/screens';
+import 'react-native-reanimated';
 
 const Stack = createNativeStackNavigator();
 
