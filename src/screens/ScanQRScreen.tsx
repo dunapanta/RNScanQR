@@ -4,6 +4,7 @@ import TextButton from '../components/shared/TextButton';
 import {Camera, useCameraDevices} from 'react-native-vision-camera';
 import {Svg, Defs, Rect, Mask} from 'react-native-svg';
 import {useScanBarcodes, BarcodeFormat} from 'vision-camera-code-scanner';
+import {ResultModal} from '../components/QRScanner';
 
 export const ScanQRScreen = ({navigation}: any) => {
   //Camera
@@ -15,6 +16,9 @@ export const ScanQRScreen = ({navigation}: any) => {
   const [frameProcessor, barcodes] = useScanBarcodes([BarcodeFormat.QR_CODE]);
   const device = devices.back;
 
+  //Result Modal
+  const [showResultModal, setShowResultModal] = useState(false);
+
   useEffect(() => {
     toggleActiveState();
   }, [barcodes]);
@@ -25,6 +29,7 @@ export const ScanQRScreen = ({navigation}: any) => {
       barcodes.forEach(async scannedBarcode => {
         if (scannedBarcode.rawValue && scannedBarcode.rawValue !== '') {
           setBarcode(scannedBarcode.rawValue);
+          setShowResultModal(true);
           console.log('Barcode: ', scannedBarcode.rawValue);
         }
       });
@@ -66,6 +71,8 @@ export const ScanQRScreen = ({navigation}: any) => {
           y="30%"
           width="250"
           height="250"
+          rx="5"
+          ry="5"
           strokeWidth="5"
           fill="rgba(0,0,0,0.0)"
           stroke="#458111"
@@ -116,6 +123,14 @@ export const ScanQRScreen = ({navigation}: any) => {
         label="Scan QR"
         onPress={() => navigation.navigate('QRCameraScreen')}
       /> */}
+
+      {/* Filter Modal */}
+      {showResultModal && (
+        <ResultModal
+          isVisible={showResultModal}
+          onClose={() => setShowResultModal(false)}
+        />
+      )}
     </View>
   );
 };
