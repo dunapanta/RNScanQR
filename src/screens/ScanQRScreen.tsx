@@ -29,7 +29,7 @@ export const ScanQRScreen = ({navigation}: any) => {
       barcodes.forEach(async scannedBarcode => {
         if (scannedBarcode.rawValue && scannedBarcode.rawValue !== '') {
           setBarcode(scannedBarcode.rawValue);
-          setShowResultModal(true);
+          setShowResultModal(() => true);
           console.log('Barcode: ', scannedBarcode.rawValue);
         }
       });
@@ -124,7 +124,7 @@ export const ScanQRScreen = ({navigation}: any) => {
         onPress={() => navigation.navigate('QRCameraScreen')}
       /> */}
 
-      {/* Filter Modal */}
+      {/* Result Modal */}
       {showResultModal && (
         <ResultModal
           isVisible={showResultModal}

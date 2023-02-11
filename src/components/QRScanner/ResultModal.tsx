@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const ResultModal = ({isVisible, onClose}: Props) => {
-  const [showResultModal, setShowResultModal] = useState(false); //easy to animate the modal
+  const [showResultModal, setShowResultModal] = useState(isVisible); //easy to animate the modal
 
   const modalAnimatedValue = useRef(new Animated.Value(0)).current;
 
@@ -16,13 +16,13 @@ export const ResultModal = ({isVisible, onClose}: Props) => {
     if (showResultModal) {
       Animated.timing(modalAnimatedValue, {
         toValue: 1,
-        duration: 500,
+        duration: 400,
         useNativeDriver: false,
       }).start();
     } else {
       Animated.timing(modalAnimatedValue, {
         toValue: 0,
-        duration: 500,
+        duration: 300,
         useNativeDriver: false,
       }).start(() => onClose());
     }
@@ -31,12 +31,12 @@ export const ResultModal = ({isVisible, onClose}: Props) => {
 
   const modalY = modalAnimatedValue.interpolate({
     inputRange: [0, 1],
-    outputRange: [SIZES.height, SIZES.height - 6800],
+    outputRange: [SIZES.height, SIZES.height - 640],
   });
 
   return (
-    <Modal animationType="fade" transparent visible={isVisible}>
-      <View style={{flex: 1, backgroundColor: 'red'}}>
+    <Modal animationType="fade" transparent={true} visible={isVisible}>
+      <View style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.5)'}}>
         {/* Transparent Background */}
         <TouchableWithoutFeedback onPress={() => setShowResultModal(false)}>
           <View
@@ -55,7 +55,6 @@ export const ResultModal = ({isVisible, onClose}: Props) => {
             borderTopRightRadius: SIZES.radius,
             borderTopLeftRadius: SIZES.radius,
             backgroundColor: COLORS.white,
-            zIndex: 100,
           }}></Animated.View>
       </View>
     </Modal>
