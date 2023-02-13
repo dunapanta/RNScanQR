@@ -1,10 +1,11 @@
 import {useCallback, useEffect, useState} from 'react';
-import {Linking, View} from 'react-native';
+import {Linking, View, Vibration} from 'react-native';
 import TextButton from '../components/shared/TextButton';
 import {Camera, useCameraDevices} from 'react-native-vision-camera';
 import {Svg, Defs, Rect, Mask} from 'react-native-svg';
 import {useScanBarcodes, BarcodeFormat} from 'vision-camera-code-scanner';
 import {ResultModal} from '../components/QRScanner';
+import {MainButton} from '../components/shared';
 
 export const ScanQRScreen = ({navigation}: any) => {
   //Camera
@@ -30,6 +31,7 @@ export const ScanQRScreen = ({navigation}: any) => {
         if (scannedBarcode.rawValue && scannedBarcode.rawValue !== '') {
           setBarcode(scannedBarcode.rawValue);
           setShowResultModal(() => true);
+          Vibration.vibrate();
           console.log('Barcode: ', scannedBarcode.rawValue);
         }
       });
@@ -73,9 +75,9 @@ export const ScanQRScreen = ({navigation}: any) => {
           height="250"
           rx="5"
           ry="5"
-          strokeWidth="5"
+          strokeWidth="3"
           fill="rgba(0,0,0,0.0)"
-          stroke="#458111"
+          stroke="#ff8855"
         />
       </Svg>
     );
@@ -95,6 +97,18 @@ export const ScanQRScreen = ({navigation}: any) => {
             frameProcessor={frameProcessor}
             frameProcessorFps={5}
           />
+
+          <View
+            style={{
+              position: 'absolute',
+              top: 30,
+              right: 30,
+              width: 20,
+              height: 20,
+              backgroundColor: '#ffffff',
+              borderRadius: 3,
+              zIndex: 1,
+            }}></View>
 
           {/* QR CODE */}
           <View
