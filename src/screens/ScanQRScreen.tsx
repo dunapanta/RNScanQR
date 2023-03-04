@@ -6,14 +6,20 @@ import {Svg, Defs, Rect, Mask} from 'react-native-svg';
 import {useScanBarcodes, BarcodeFormat} from 'vision-camera-code-scanner';
 import {ResultModal} from '../components/QRScanner';
 import {MainButton} from '../components/shared';
+import {useScanQRStore} from '../stores/useScanQRStore';
 
 export const ScanQRScreen = ({navigation}: any) => {
   //Camera
   const devices = useCameraDevices();
+  //Zustand
+  const barcode = useScanQRStore(state => state.barcode);
+  const setBarcode = useScanQRStore(state => state.setBarcode);
+  const isScanned = useScanQRStore(state => state.isScanned);
+  const setIsScanned = useScanQRStore(state => state.setIsScanned);
 
   //Barcode
-  const [barcode, setBarcode] = useState('');
-  const [isScanned, setIsScanned] = useState(false);
+  //const [barcode, setBarcode] = useState('');
+  //const [isScanned, setIsScanned] = useState(false);
   const [frameProcessor, barcodes] = useScanBarcodes([BarcodeFormat.QR_CODE]);
   const device = devices.back;
 
