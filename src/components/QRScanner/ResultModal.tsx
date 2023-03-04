@@ -1,14 +1,15 @@
 import {useEffect, useRef, useState} from 'react';
 import {Animated, Modal, TouchableWithoutFeedback, View} from 'react-native';
+
+import {useUiStore} from '../../stores/useUi';
 import {COLORS, SIZES} from '../../constants';
 
-interface Props {
-  isVisible: boolean;
-  onClose: () => void;
-}
+interface Props {}
 
-export const ResultModal = ({isVisible, onClose}: Props) => {
-  const [showResultModal, setShowResultModal] = useState(isVisible); //easy to animate the modal
+export const ResultModal = ({}: Props) => {
+  //const [showResultModal, setShowResultModal] = useState(isVisible); //easy to animate the modal
+  const showResultModal = useUiStore(state => state.showResultModal);
+  const setShowResultModal = useUiStore(state => state.setShowResultModal);
 
   const modalAnimatedValue = useRef(new Animated.Value(0)).current;
 
@@ -24,7 +25,7 @@ export const ResultModal = ({isVisible, onClose}: Props) => {
         toValue: 0,
         duration: 300,
         useNativeDriver: false,
-      }).start(() => onClose());
+      }).start(() => setShowResultModal(false));
     }
     console.log('showResultModal: ', showResultModal);
   }, [showResultModal]);
@@ -35,7 +36,7 @@ export const ResultModal = ({isVisible, onClose}: Props) => {
   });
 
   return (
-    <Modal animationType="fade" transparent={true} visible={isVisible}>
+    <Modal animationType="fade" transparent={true} visible={showResultModal}>
       <View style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.5)'}}>
         {/* Transparent Background */}
         <TouchableWithoutFeedback onPress={() => setShowResultModal(false)}>

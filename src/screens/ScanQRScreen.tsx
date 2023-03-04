@@ -7,6 +7,7 @@ import {useScanBarcodes, BarcodeFormat} from 'vision-camera-code-scanner';
 import {ResultModal} from '../components/QRScanner';
 import {MainButton} from '../components/shared';
 import {useScanQRStore} from '../stores/useScanQRStore';
+import {useUiStore} from '../stores/useUi';
 
 export const ScanQRScreen = ({navigation}: any) => {
   //Camera
@@ -24,7 +25,9 @@ export const ScanQRScreen = ({navigation}: any) => {
   const device = devices.back;
 
   //Result Modal
-  const [showResultModal, setShowResultModal] = useState(false);
+  //const [showResultModal, setShowResultModal] = useState(false);
+  const showResultModal = useUiStore(state => state.showResultModal);
+  const setShowResultModal = useUiStore(state => state.setShowResultModal);
 
   useEffect(() => {
     toggleActiveState();
@@ -36,7 +39,7 @@ export const ScanQRScreen = ({navigation}: any) => {
       barcodes.forEach(async scannedBarcode => {
         if (scannedBarcode.rawValue && scannedBarcode.rawValue !== '') {
           setBarcode(scannedBarcode.rawValue);
-          setShowResultModal(() => true);
+          setShowResultModal(true);
           Vibration.vibrate();
           console.log('Barcode: ', scannedBarcode.rawValue);
         }
@@ -145,12 +148,7 @@ export const ScanQRScreen = ({navigation}: any) => {
       /> */}
 
       {/* Result Modal */}
-      {showResultModal && (
-        <ResultModal
-          isVisible={showResultModal}
-          onClose={() => setShowResultModal(false)}
-        />
-      )}
+      {showResultModal && <ResultModal />}
     </View>
   );
 };
