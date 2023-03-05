@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useState} from 'react';
-import {Linking, View, Vibration} from 'react-native';
+import {Linking, View, Vibration, TouchableOpacity} from 'react-native';
 import TextButton from '../components/shared/TextButton';
 import {Camera, useCameraDevices} from 'react-native-vision-camera';
 import {Svg, Defs, Rect, Mask} from 'react-native-svg';
@@ -41,7 +41,6 @@ export const ScanQRScreen = ({navigation}: any) => {
           setBarcode(scannedBarcode.rawValue);
           setShowResultModal(true);
           Vibration.vibrate();
-          console.log('Barcode: ', scannedBarcode.rawValue);
         }
       });
     }
@@ -107,17 +106,23 @@ export const ScanQRScreen = ({navigation}: any) => {
             frameProcessorFps={5}
           />
 
-          <View
+          <TouchableOpacity
             style={{
               position: 'absolute',
               top: 30,
               right: 30,
-              width: 20,
-              height: 20,
+              width: 40,
+              height: 40,
               backgroundColor: '#ffffff',
               borderRadius: 3,
               zIndex: 1,
-            }}></View>
+            }}
+            onPress={() => {
+              console.log('barcode: ', barcode);
+              console.log('isScanned: ', isScanned);
+              console.log('showResultModal: ', showResultModal);
+              console.log('barcodes: ', barcodes);
+            }}></TouchableOpacity>
 
           {/* QR CODE */}
           <View

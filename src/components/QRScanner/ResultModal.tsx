@@ -1,8 +1,15 @@
 import {useEffect, useRef, useState} from 'react';
-import {Animated, Modal, TouchableWithoutFeedback, View} from 'react-native';
+import {
+  Animated,
+  Modal,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 
 import {useUiStore} from '../../stores/useUi';
-import {COLORS, SIZES} from '../../constants';
+import {useScanQRStore} from '../../stores/useScanQRStore';
+import {COLORS, FONTS, SIZES} from '../../constants';
 
 interface Props {}
 
@@ -11,7 +18,17 @@ export const ResultModal = ({}: Props) => {
   const showResultModal = useUiStore(state => state.showResultModal);
   const setShowResultModal = useUiStore(state => state.setShowResultModal);
 
+  //Barcode
+  const setBarcode = useScanQRStore(state => state.setBarcode);
+  const setIsScanned = useScanQRStore(state => state.setIsScanned);
+
   const modalAnimatedValue = useRef(new Animated.Value(0)).current;
+
+  const closeModalEmptyBarcode = () => {
+    setShowResultModal(false);
+    setBarcode('');
+    setIsScanned(false);
+  };
 
   useEffect(() => {
     if (showResultModal) {
@@ -25,9 +42,8 @@ export const ResultModal = ({}: Props) => {
         toValue: 0,
         duration: 300,
         useNativeDriver: false,
-      }).start(() => setShowResultModal(false));
+      }).start(() => closeModalEmptyBarcode());
     }
-    console.log('showResultModal: ', showResultModal);
   }, [showResultModal]);
 
   const modalY = modalAnimatedValue.interpolate({
@@ -39,7 +55,7 @@ export const ResultModal = ({}: Props) => {
     <Modal animationType="fade" transparent={true} visible={showResultModal}>
       <View style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.5)'}}>
         {/* Transparent Background */}
-        <TouchableWithoutFeedback onPress={() => setShowResultModal(false)}>
+        <TouchableWithoutFeedback onPress={closeModalEmptyBarcode}>
           <View
             style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0}}
           />
@@ -56,7 +72,15 @@ export const ResultModal = ({}: Props) => {
             borderTopRightRadius: SIZES.radius,
             borderTopLeftRadius: SIZES.radius,
             backgroundColor: COLORS.white,
-          }}></Animated.View>
+          }}>
+          {setBarcode.length > 0 && (
+            <Text style={{...FONTS.h1, marginTop: 30}}>hola hola</Text>
+          )}
+          <Text style={{...FONTS.h1, zIndex: 6666, marginTop: 30}}>
+            hola hola
+          </Text>
+          <Text style={{...FONTS.h1, marginTop: 30}}>hola hola</Text>
+        </Animated.View>
       </View>
     </Modal>
   );
