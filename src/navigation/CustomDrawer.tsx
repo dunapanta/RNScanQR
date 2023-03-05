@@ -4,8 +4,8 @@ import {
   createDrawerNavigator,
   DrawerContentScrollView,
 } from '@react-navigation/drawer';
-import {COLORS} from '../src/constants';
-import {QRCameraScreen} from '../src/screens';
+import {COLORS} from '../constants';
+import {ScanQRScreen} from '../screens';
 
 const Drawer = createDrawerNavigator();
 
@@ -30,8 +30,8 @@ const CustomDrawer = () => {
             backgroundColor: 'transparent',
           },
         }}
-        initialRouteName="QRCameraScreen">
-        <Drawer.Screen name="QRCameraScreen" component={QRCameraScreen} />
+        initialRouteName="ScanQRScreen">
+        <Drawer.Screen name="ScanQRScreen" component={ScanQRScreen} />
       </Drawer.Navigator>
     </View>
   );

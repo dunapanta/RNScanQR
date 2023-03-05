@@ -1,13 +1,14 @@
 import 'react-native-gesture-handler';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
+import 'react-native-reanimated';
 import {
   QRCameraScreen,
   ScanQRScreen,
   TestScreen,
   WelcomeScreen,
 } from './src/screens';
-import 'react-native-reanimated';
+import CustomDrawer from './src/navigation/CustomDrawer';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,7 +22,7 @@ function App(): JSX.Element {
         <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
         <Stack.Screen name="TestScreen" component={TestScreen} />
         <Stack.Screen name="ScanQRScreen" component={ScanQRScreen} />
-        <Stack.Screen name="QRCameraScreen" component={QRCameraScreen} />
+        <Stack.Screen name="CustomDrawer" component={CustomDrawer} />
       </Stack.Navigator>
     </NavigationContainer>
   );

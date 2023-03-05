@@ -77,7 +77,7 @@ export const TestScreen = ({navigation}: any) => {
                     labelStyle={{
                       ...FONTS.h3,
                     }}
-                    onPress={() => navigation.navigate('ScanQRScreen')}
+                    onPress={() => navigation.navigate('CustomDrawer')}
                   />
                 )}
               </View>
