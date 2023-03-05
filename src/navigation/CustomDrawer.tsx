@@ -1,10 +1,10 @@
 import React from 'react';
-import {View} from 'react-native';
+import {Image, TouchableOpacity, View} from 'react-native';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
 } from '@react-navigation/drawer';
-import {COLORS, SIZES} from '../constants';
+import {COLORS, images, SIZES} from '../constants';
 import {ScanQRScreen} from '../screens';
 
 const Drawer = createDrawerNavigator();
@@ -12,7 +12,22 @@ const Drawer = createDrawerNavigator();
 const CustomDrawerContent = ({navigation}) => {
   return (
     <DrawerContentScrollView scrollEnabled contentContainerStyle={{flex: 1}}>
-      <View style={{flex: 1, paddingHorizontal: SIZES.radius}}></View>
+      <View style={{flex: 1, paddingHorizontal: SIZES.radius}}>
+        {/* Close */}
+        <View style={{alignItems: 'flex-start', justifyContent: 'center'}}>
+          <TouchableOpacity
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            onPress={() => navigation.closeDrawer()}>
+            <Image
+              source={images.cross}
+              style={{height: 35, width: 35, tintColor: COLORS.white}}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
     </DrawerContentScrollView>
   );
 };
