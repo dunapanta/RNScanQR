@@ -1,13 +1,51 @@
 import React from 'react';
-import {Image, TouchableOpacity, View} from 'react-native';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
 } from '@react-navigation/drawer';
-import {COLORS, images, SIZES} from '../constants';
+import {COLORS, FONTS, images, SIZES} from '../constants';
 import {ScanQRScreen} from '../screens';
 
 const Drawer = createDrawerNavigator();
+
+interface CustomDrawerItemProps {
+  label: string;
+  icon: any;
+  isFocused?: boolean;
+}
+
+const CustomDrawerItem = ({label, icon, isFocused}: CustomDrawerItemProps) => {
+  return (
+    <TouchableOpacity
+      style={{
+        flexDirection: 'row',
+        height: 50,
+        marginBottom: SIZES.base,
+        alignItems: 'center',
+        borderRadius: SIZES.radius,
+        backgroundColor: isFocused ? COLORS.transparentBlack1 : null,
+      }}>
+      <Image
+        source={icon}
+        resizeMode="contain"
+        style={{
+          width: 26,
+          height: 26,
+          tintColor: COLORS.white,
+        }}
+      />
+      <Text
+        style={{
+          marginLeft: 15,
+          color: COLORS.white,
+          ...FONTS.h3,
+        }}>
+        {label}
+      </Text>
+    </TouchableOpacity>
+  );
+};
 
 const CustomDrawerContent = ({navigation}) => {
   return (
@@ -23,9 +61,20 @@ const CustomDrawerContent = ({navigation}) => {
             onPress={() => navigation.closeDrawer()}>
             <Image
               source={images.cross}
-              style={{height: 35, width: 35, tintColor: COLORS.white}}
+              style={{height: 50, width: 50, tintColor: COLORS.white}}
             />
           </TouchableOpacity>
+        </View>
+        {/* Drawer Items */}
+        <View
+          style={{
+            flex: 1,
+            marginTop: SIZES.padding * 2,
+          }}>
+          <CustomDrawerItem label="Home" icon={images.qr} />
+          <CustomDrawerItem label="Favorites" icon={images.favorites} />
+          <CustomDrawerItem label="History" icon={images.history} />
+          <CustomDrawerItem label="Settings" icon={images.settings} />
         </View>
       </View>
     </DrawerContentScrollView>

@@ -2,12 +2,7 @@ import 'react-native-gesture-handler';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import 'react-native-reanimated';
-import {
-  QRCameraScreen,
-  ScanQRScreen,
-  TestScreen,
-  WelcomeScreen,
-} from './src/screens';
+import {ScanQRScreen, TestScreen, WelcomeScreen} from './src/screens';
 import CustomDrawer from './src/navigation/CustomDrawer';
 
 const Stack = createNativeStackNavigator();

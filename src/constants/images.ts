@@ -32,6 +32,10 @@ const walkthrough_02_06 = require('../assets/images/onBoard/walkthrough_02_06.pn
 const walkthrough_02_07 = require('../assets/images/onBoard/walkthrough_02_07.png');
 //UI
 const cross = require('../assets/images/ui/cross.png');
+const qr = require('../assets/images/ui/qr.png');
+const favorites = require('../assets/images/ui/favorites.png');
+const history = require('../assets/images/ui/history.png');
+const settings = require('../assets/images/ui/settings.png');
 /*const walkthrough_03_01 = require('../assets/images/walkthrough/walkthrough_03_01.png');
 const walkthrough_03_02 = require('../assets/images/walkthrough/walkthrough_03_02.png');
 const walkthrough_04_01 = require('../assets/images/walkthrough/walkthrough_04_01.png');
@@ -76,6 +80,10 @@ export default {
   walkthrough_02_06,
   walkthrough_02_07,
   cross,
+  qr,
+  favorites,
+  history,
+  settings,
   /*walkthrough_03_01,
   walkthrough_03_02,
   walkthrough_04_01,
