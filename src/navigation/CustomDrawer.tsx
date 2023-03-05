@@ -4,10 +4,18 @@ import {
   createDrawerNavigator,
   DrawerContentScrollView,
 } from '@react-navigation/drawer';
-import {COLORS} from '../constants';
+import {COLORS, SIZES} from '../constants';
 import {ScanQRScreen} from '../screens';
 
 const Drawer = createDrawerNavigator();
+
+const CustomDrawerContent = ({navigation}) => {
+  return (
+    <DrawerContentScrollView scrollEnabled contentContainerStyle={{flex: 1}}>
+      <View style={{flex: 1, paddingHorizontal: SIZES.radius}}></View>
+    </DrawerContentScrollView>
+  );
+};
 
 const CustomDrawer = () => {
   return (
@@ -18,6 +26,7 @@ const CustomDrawer = () => {
       }}>
       <Drawer.Navigator
         screenOptions={{
+          headerShown: false,
           drawerType: 'slide',
           overlayColor: 'transparent',
           drawerStyle: {
@@ -30,8 +39,13 @@ const CustomDrawer = () => {
             backgroundColor: 'transparent',
           },
         }}
-        initialRouteName="ScanQRScreen">
-        <Drawer.Screen name="ScanQRScreen" component={ScanQRScreen} />
+        initialRouteName="ScanQRScreen"
+        drawerContent={props => {
+          return <CustomDrawerContent navigation={props.navigation} />;
+        }}>
+        <Drawer.Screen name="ScanQRScreen">
+          {props => <ScanQRScreen {...props} />}
+        </Drawer.Screen>
       </Drawer.Navigator>
     </View>
   );
