@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
 } from '@react-navigation/drawer';
+import Animated from 'react-native-reanimated';
+
 import {COLORS, FONTS, images, SIZES} from '../constants';
 import {ScanQRScreen} from '../screens';
 
@@ -82,6 +84,20 @@ const CustomDrawerContent = ({navigation}) => {
 };
 
 const CustomDrawer = () => {
+  const [progress, setProgress] = useState(new Animated.Value(0));
+
+  const scale = Animated.interpolateNode(progress, {
+    inputRange: [0, 1],
+    outputRange: [1, 0.8],
+  });
+
+  const borderRadius = Animated.interpolateNode(progress, {
+    inputRange: [0, 1],
+    outputRange: [0, 26],
+  });
+
+  const animatedStyle = {borderRadius, transform: [{scale}]};
+
   return (
     <View
       style={{
@@ -105,10 +121,16 @@ const CustomDrawer = () => {
         }}
         initialRouteName="ScanQRScreen"
         drawerContent={props => {
+          console.log('props:', props);
+          setTimeout(() => {
+            setProgress(props.progress);
+          }, 0);
           return <CustomDrawerContent navigation={props.navigation} />;
         }}>
         <Drawer.Screen name="ScanQRScreen">
-          {props => <ScanQRScreen {...props} />}
+          {props => (
+            <ScanQRScreen {...props} drawerAnimationStyle={animatedStyle} />
+          )}
         </Drawer.Screen>
       </Drawer.Navigator>
     </View>
