@@ -10,6 +10,7 @@ import {
 import {useUiStore} from '../../stores/useUi';
 import {useScanQRStore} from '../../stores/useScanQRStore';
 import {COLORS, FONTS, SIZES} from '../../constants';
+import {color} from 'react-native-reanimated';
 
 interface Props {}
 
@@ -19,6 +20,7 @@ export const ResultModal = ({}: Props) => {
   const setShowResultModal = useUiStore(state => state.setShowResultModal);
 
   //Barcode
+  const barcode = useScanQRStore(state => state.barcode);
   const setBarcode = useScanQRStore(state => state.setBarcode);
   const setIsScanned = useScanQRStore(state => state.setIsScanned);
 
@@ -73,13 +75,19 @@ export const ResultModal = ({}: Props) => {
             borderTopLeftRadius: SIZES.radius,
             backgroundColor: COLORS.white,
           }}>
-          {setBarcode.length > 0 && (
-            <Text style={{...FONTS.h1, marginTop: 30}}>hola hola</Text>
-          )}
-          <Text style={{...FONTS.h1, zIndex: 6666, marginTop: 30}}>
-            hola hola
-          </Text>
-          <Text style={{...FONTS.h1, marginTop: 30}}>hola hola</Text>
+          {/* Header */}
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            <Text style={{flex: 1, ...FONTS.h3, fontSize: 18, color: 'black'}}>
+              Scan Result
+            </Text>
+            <Text style={{flex: 1, ...FONTS.h3, fontSize: 18, color: 'black'}}>
+              {barcode}
+            </Text>
+          </View>
         </Animated.View>
       </View>
     </Modal>
