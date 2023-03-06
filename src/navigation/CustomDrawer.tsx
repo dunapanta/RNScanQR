@@ -96,7 +96,11 @@ const CustomDrawer = () => {
     outputRange: [0, 26],
   });
 
-  const animatedStyle = {borderRadius, transform: [{scale}]};
+  const animatedStyle = {
+    borderRadius,
+    transform: [{scale}],
+    overflow: 'hidden',
+  };
 
   return (
     <View
@@ -109,7 +113,7 @@ const CustomDrawer = () => {
         overlayColor="transparent"
         drawerStyle={{
           flex: 1,
-          width: '65%',
+          width: '45%',
           paddingRight: 20,
           backgroundColor: 'transparent',
         }}
