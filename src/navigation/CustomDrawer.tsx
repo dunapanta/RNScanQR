@@ -105,19 +105,16 @@ const CustomDrawer = () => {
         backgroundColor: COLORS.primary,
       }}>
       <Drawer.Navigator
-        screenOptions={{
-          headerShown: false,
-          drawerType: 'slide',
-          overlayColor: 'transparent',
-          drawerStyle: {
-            flex: 1,
-            width: '65%',
-            paddingRight: 20,
-            backgroundColor: 'transparent',
-          },
-          sceneContainerStyle: {
-            backgroundColor: 'transparent',
-          },
+        drawerType="slide"
+        overlayColor="transparent"
+        drawerStyle={{
+          flex: 1,
+          width: '65%',
+          paddingRight: 20,
+          backgroundColor: 'transparent',
+        }}
+        sceneContainerStyle={{
+          backgroundColor: 'transparent',
         }}
         initialRouteName="ScanQRScreen"
         drawerContent={props => {

@@ -8,8 +8,9 @@ import {ResultModal} from '../components/QRScanner';
 import {MainButton} from '../components/shared';
 import {useScanQRStore} from '../stores/useScanQRStore';
 import {useUiStore} from '../stores/useUi';
+import Animated from 'react-native-reanimated';
 
-export const ScanQRScreen = ({navigation}: any) => {
+export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
   //Camera
   const devices = useCameraDevices();
   //Zustand
@@ -141,9 +142,10 @@ export const ScanQRScreen = ({navigation}: any) => {
   }
 
   return (
-    <View
+    <Animated.View
       style={{
         flex: 1,
+        ...drawerAnimationStyle,
       }}>
       {/* Camera */}
       {renderCamera()}
@@ -154,6 +156,6 @@ export const ScanQRScreen = ({navigation}: any) => {
 
       {/* Result Modal */}
       {showResultModal && <ResultModal />}
-    </View>
+    </Animated.View>
   );
 };
