@@ -8,6 +8,7 @@ import Animated from 'react-native-reanimated';
 
 import {COLORS, FONTS, images, SIZES} from '../constants';
 import {ScanQRScreen} from '../screens';
+import {useUiStore} from '../stores/useUi';
 
 const Drawer = createDrawerNavigator();
 
@@ -15,19 +16,27 @@ interface CustomDrawerItemProps {
   label: string;
   icon: any;
   isFocused?: boolean;
+  onPress?: () => void;
 }
 
-const CustomDrawerItem = ({label, icon, isFocused}: CustomDrawerItemProps) => {
+const CustomDrawerItem = ({
+  label,
+  icon,
+  isFocused,
+  onPress,
+}: CustomDrawerItemProps) => {
   return (
     <TouchableOpacity
       style={{
         flexDirection: 'row',
         height: 50,
         marginBottom: SIZES.base,
+        paddingLeft: SIZES.radius,
         alignItems: 'center',
         borderRadius: SIZES.radius,
-        backgroundColor: isFocused ? COLORS.transparentBlack1 : null,
-      }}>
+        backgroundColor: isFocused ? COLORS.dark80 : undefined,
+      }}
+      onPress={onPress}>
       <Image
         source={icon}
         resizeMode="contain"
@@ -49,12 +58,21 @@ const CustomDrawerItem = ({label, icon, isFocused}: CustomDrawerItemProps) => {
   );
 };
 
-const CustomDrawerContent = ({navigation}) => {
+const CustomDrawerContent = ({
+  navigation,
+  selectedTab,
+  setSelectedTab,
+}: any) => {
   return (
     <DrawerContentScrollView scrollEnabled contentContainerStyle={{flex: 1}}>
       <View style={{flex: 1, paddingHorizontal: SIZES.radius}}>
         {/* Close */}
-        <View style={{alignItems: 'flex-start', justifyContent: 'center'}}>
+        <View
+          style={{
+            alignItems: 'flex-start',
+            justifyContent: 'center',
+            marginTop: 30,
+          }}>
           <TouchableOpacity
             style={{
               alignItems: 'center',
@@ -73,11 +91,36 @@ const CustomDrawerContent = ({navigation}) => {
             flex: 1,
             marginTop: SIZES.padding * 2,
           }}>
-          <CustomDrawerItem label="Home" icon={images.qr} />
-          <CustomDrawerItem label="Favorites" icon={images.favorites} />
-          <CustomDrawerItem label="History" icon={images.history} />
-          <CustomDrawerItem label="Settings" icon={images.settings} />
-          <CustomDrawerItem label="About" icon={images.about} />
+          <CustomDrawerItem
+            label="Home"
+            icon={images.qr}
+            isFocused={selectedTab === 'Home'}
+            onPress={() => setSelectedTab('Home')}
+          />
+          <CustomDrawerItem
+            label="Favorites"
+            icon={images.favorites}
+            isFocused={selectedTab === 'Favorites'}
+            onPress={() => setSelectedTab('Favorites')}
+          />
+          <CustomDrawerItem
+            label="History"
+            icon={images.history}
+            isFocused={selectedTab === 'History'}
+            onPress={() => setSelectedTab('History')}
+          />
+          <CustomDrawerItem
+            label="Settings"
+            icon={images.settings}
+            isFocused={selectedTab === 'Settings'}
+            onPress={() => setSelectedTab('Settings')}
+          />
+          <CustomDrawerItem
+            label="About"
+            icon={images.about}
+            isFocused={selectedTab === 'About'}
+            onPress={() => setSelectedTab('About')}
+          />
         </View>
       </View>
     </DrawerContentScrollView>
@@ -86,6 +129,8 @@ const CustomDrawerContent = ({navigation}) => {
 
 const CustomDrawer = () => {
   const [progress, setProgress] = useState(new Animated.Value(0));
+  const selectedTab = useUiStore(state => state.selectedTab);
+  const setSelectedTab = useUiStore(state => state.setSelectedTab);
 
   const scale = Animated.interpolateNode(progress, {
     inputRange: [0, 1],
@@ -114,8 +159,7 @@ const CustomDrawer = () => {
         overlayColor="transparent"
         drawerStyle={{
           flex: 1,
-          width: '45%',
-          paddingRight: 20,
+          width: '47%',
           backgroundColor: 'transparent',
         }}
         sceneContainerStyle={{
@@ -127,7 +171,13 @@ const CustomDrawer = () => {
           setTimeout(() => {
             setProgress(props.progress);
           }, 0);
-          return <CustomDrawerContent navigation={props.navigation} />;
+          return (
+            <CustomDrawerContent
+              navigation={props.navigation}
+              selectedTab={selectedTab}
+              setSelectedTab={setSelectedTab}
+            />
+          );
         }}>
         <Drawer.Screen name="ScanQRScreen">
           {props => (
