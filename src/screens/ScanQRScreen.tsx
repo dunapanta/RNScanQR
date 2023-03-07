@@ -118,12 +118,7 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
               borderRadius: 3,
               zIndex: 1,
             }}
-            onPress={() => {
-              console.log('barcode: ', barcode);
-              console.log('isScanned: ', isScanned);
-              console.log('showResultModal: ', showResultModal);
-              console.log('barcodes: ', barcodes);
-            }}></TouchableOpacity>
+            onPress={() => navigation.toggleDrawer()}></TouchableOpacity>
 
           {/* QR CODE */}
           <View

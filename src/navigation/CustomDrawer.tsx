@@ -9,6 +9,10 @@ import Animated from 'react-native-reanimated';
 import {COLORS, FONTS, images, SIZES} from '../constants';
 import {ScanQRScreen} from '../screens';
 import {useUiStore} from '../stores/useUi';
+import {FavoritesScreen} from '../screens/FavoritesScreen';
+import {HistoryScreen} from '../screens/History';
+import {SettingsScreen} from '../screens/Settings';
+import {AboutScreen} from '../screens/About';
 
 const Drawer = createDrawerNavigator();
 
@@ -95,31 +99,46 @@ const CustomDrawerContent = ({
             label="Home"
             icon={images.qr}
             isFocused={selectedTab === 'Home'}
-            onPress={() => setSelectedTab('Home')}
+            onPress={() => {
+              setSelectedTab('Home');
+              navigation.navigate('ScanQRScreen');
+            }}
           />
           <CustomDrawerItem
             label="Favorites"
             icon={images.favorites}
             isFocused={selectedTab === 'Favorites'}
-            onPress={() => setSelectedTab('Favorites')}
+            onPress={() => {
+              setSelectedTab('Favorites');
+              navigation.navigate('Favorites');
+            }}
           />
           <CustomDrawerItem
             label="History"
             icon={images.history}
             isFocused={selectedTab === 'History'}
-            onPress={() => setSelectedTab('History')}
+            onPress={() => {
+              setSelectedTab('History');
+              navigation.navigate('History');
+            }}
           />
           <CustomDrawerItem
             label="Settings"
             icon={images.settings}
             isFocused={selectedTab === 'Settings'}
-            onPress={() => setSelectedTab('Settings')}
+            onPress={() => {
+              setSelectedTab('Settings');
+              navigation.navigate('Settings');
+            }}
           />
           <CustomDrawerItem
             label="About"
             icon={images.about}
             isFocused={selectedTab === 'About'}
-            onPress={() => setSelectedTab('About')}
+            onPress={() => {
+              setSelectedTab('About');
+              navigation.navigate('About');
+            }}
           />
         </View>
       </View>
@@ -183,6 +202,22 @@ const CustomDrawer = () => {
           {props => (
             <ScanQRScreen {...props} drawerAnimationStyle={animatedStyle} />
           )}
+        </Drawer.Screen>
+        {/* Favorites */}
+        <Drawer.Screen name="Favorites">
+          {props => <FavoritesScreen {...props} />}
+        </Drawer.Screen>
+        {/* History */}
+        <Drawer.Screen name="History">
+          {props => <HistoryScreen {...props} />}
+        </Drawer.Screen>
+        {/* Settings */}
+        <Drawer.Screen name="Settings">
+          {props => <SettingsScreen {...props} />}
+        </Drawer.Screen>
+        {/* About */}
+        <Drawer.Screen name="About">
+          {props => <AboutScreen {...props} />}
         </Drawer.Screen>
       </Drawer.Navigator>
     </View>
