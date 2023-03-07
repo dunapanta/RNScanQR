@@ -77,6 +77,7 @@ const CustomDrawerContent = ({navigation}) => {
           <CustomDrawerItem label="Favorites" icon={images.favorites} />
           <CustomDrawerItem label="History" icon={images.history} />
           <CustomDrawerItem label="Settings" icon={images.settings} />
+          <CustomDrawerItem label="About" icon={images.about} />
         </View>
       </View>
     </DrawerContentScrollView>
