@@ -1,6 +1,5 @@
 import React from 'react';
-import {StyleSheet, Image} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {TouchableOpacity, StyleSheet, Image} from 'react-native';
 
 import {COLORS, images, SIZES} from '../../constants';
 
@@ -34,5 +33,6 @@ const styles = StyleSheet.create({
     borderRadius: SIZES.radius,
     borderWidth: 1,
     borderColor: COLORS.light80,
+    zIndex: 1,
   },
 });
