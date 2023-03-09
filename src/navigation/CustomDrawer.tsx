@@ -186,7 +186,6 @@ const CustomDrawer = () => {
         }}
         initialRouteName="ScanQRScreen"
         drawerContent={props => {
-          console.log('props:', props);
           setTimeout(() => {
             setProgress(props.progress);
           }, 0);
@@ -209,7 +208,9 @@ const CustomDrawer = () => {
         </Drawer.Screen>
         {/* History */}
         <Drawer.Screen name="History">
-          {props => <HistoryScreen {...props} />}
+          {props => (
+            <HistoryScreen {...props} drawerAnimationStyle={animatedStyle} />
+          )}
         </Drawer.Screen>
         {/* Settings */}
         <Drawer.Screen name="Settings">
