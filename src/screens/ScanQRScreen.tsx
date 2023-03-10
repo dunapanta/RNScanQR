@@ -10,6 +10,7 @@ import {ResultModal} from '../components/QRScanner';
 import {MainButton} from '../components/shared';
 import {useScanQRStore} from '../stores/useScanQRStore';
 import {useUiStore} from '../stores/useUi';
+import {useIsFocused} from '@react-navigation/native';
 
 export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
   //Camera
@@ -19,6 +20,7 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
   const setBarcode = useScanQRStore(state => state.setBarcode);
   const isScanned = useScanQRStore(state => state.isScanned);
   const setIsScanned = useScanQRStore(state => state.setIsScanned);
+  const isfocused = useIsFocused();
 
   //Barcode
   //const [barcode, setBarcode] = useState('');
@@ -100,9 +102,9 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
       return (
         <View style={{flex: 1}}>
           <Camera
+            isActive={isfocused}
             style={{flex: 1, backgroundColor: 'purple'}}
             device={device}
-            isActive={true}
             enableZoomGesture={true}
             frameProcessor={frameProcessor}
             frameProcessorFps={5}
