@@ -1,5 +1,12 @@
 import {useCallback, useEffect} from 'react';
-import {Linking, View, Vibration, TouchableOpacity} from 'react-native';
+import {
+  Linking,
+  View,
+  Vibration,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+} from 'react-native';
 import Animated from 'react-native-reanimated';
 import {Camera, useCameraDevices} from 'react-native-vision-camera';
 import {useScanBarcodes, BarcodeFormat} from 'vision-camera-code-scanner';
@@ -9,7 +16,8 @@ import {ResultModal} from '../components/QRScanner';
 import {useScanQRStore} from '../stores/useScanQRStore';
 import {useUiStore} from '../stores/useUi';
 import {useIsFocused} from '@react-navigation/native';
-import {COLORS} from '../constants';
+import {COLORS, images, SIZES} from '../constants';
+import {MenuItem} from '../components/shared';
 
 export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
   const isfocused = useIsFocused();
@@ -105,19 +113,6 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
             frameProcessorFps={5}
           />
 
-          <TouchableOpacity
-            style={{
-              position: 'absolute',
-              top: 30,
-              right: 30,
-              width: 40,
-              height: 40,
-              backgroundColor: '#ffffff',
-              borderRadius: 3,
-              zIndex: 1,
-            }}
-            onPress={() => navigation.toggleDrawer()}></TouchableOpacity>
-
           {/* QR CODE */}
           <View
             style={{
@@ -140,6 +135,20 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
         flex: 1,
         ...drawerAnimationStyle,
       }}>
+      {/* Menu Item */}
+      <TouchableOpacity
+        style={styles.menuContainer}
+        onPress={() => navigation.toggleDrawer()}>
+        <Image
+          source={images.menu}
+          resizeMode="contain"
+          style={{
+            width: 26,
+            height: 26,
+            tintColor: COLORS.white,
+          }}
+        />
+      </TouchableOpacity>
       {/* Camera */}
       {renderCamera()}
       {/* <TextButton
@@ -152,3 +161,20 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
     </Animated.View>
   );
 };
+
+const styles = StyleSheet.create({
+  menuContainer: {
+    position: 'absolute',
+    top: 30,
+    left: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 60,
+    height: 60,
+    backgroundColor: COLORS.light08,
+    borderRadius: SIZES.radius,
+    borderWidth: 1,
+    borderColor: COLORS.light80,
+    zIndex: 1,
+  },
+});
