@@ -27,52 +27,53 @@ export const HistoryScreen = ({drawerAnimationStyle, navigation}: any) => {
       </View>
 
       {/* No History */}
-      <>
-        <View
-          style={{
-            marginTop: SIZES.margin,
-            alignItems: 'center',
-          }}>
-          <View>
-            <Text
-              style={{color: COLORS.white, ...FONTS.h1, textAlign: 'center'}}>
-              History
-            </Text>
-            <Text
+      {scanned.length > 0 ? (
+        <FlashList
+          data={scanned}
+          renderItem={({item}) => (
+            <View
               style={{
-                color: COLORS.white,
-                ...FONTS.h2,
-                textAlign: 'center',
-                marginTop: SIZES.margin * 3,
+                backgroundColor: COLORS.light60,
+                borderWidth: 2,
+                borderBottomColor: COLORS.white,
+                borderRadius: SIZES.radius,
               }}>
-              Noting to show yet
-            </Text>
-          </View>
-        </View>
-        <Lottie
-          source={require('../assets/animations/nothing.json')}
-          autoPlay
-          style={{marginTop: 10}}
-          loop
+              <Text>{item.value}</Text>
+            </View>
+          )}
+          estimatedItemSize={20}
         />
-      </>
-      {/* Flatlist History scanned */}
-      <FlashList
-        data={scanned}
-        renderItem={({item}) => (
+      ) : (
+        <>
           <View
             style={{
-              backgroundColor: COLORS.light60,
-              borderWidth: 4,
-              borderBottomColor: COLORS.white,
-              height: 100,
-              minWidth: 100,
+              marginTop: SIZES.margin,
+              alignItems: 'center',
             }}>
-            <Text>{item.value}</Text>
+            <View>
+              <Text
+                style={{color: COLORS.white, ...FONTS.h1, textAlign: 'center'}}>
+                History
+              </Text>
+              <Text
+                style={{
+                  color: COLORS.white,
+                  ...FONTS.h2,
+                  textAlign: 'center',
+                  marginTop: SIZES.margin * 3,
+                }}>
+                Noting to show yet
+              </Text>
+            </View>
           </View>
-        )}
-        estimatedItemSize={20}
-      />
+          <Lottie
+            source={require('../assets/animations/nothing.json')}
+            autoPlay
+            style={{marginTop: 10}}
+            loop
+          />
+        </>
+      )}
     </Animated.View>
   );
 };
