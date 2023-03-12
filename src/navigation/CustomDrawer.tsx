@@ -204,7 +204,9 @@ const CustomDrawer = () => {
         </Drawer.Screen>
         {/* Favorites */}
         <Drawer.Screen name="Favorites">
-          {props => <FavoritesScreen {...props} />}
+          {props => (
+            <FavoritesScreen {...props} drawerAnimationStyle={animatedStyle} />
+          )}
         </Drawer.Screen>
         {/* History */}
         <Drawer.Screen name="History">
@@ -214,7 +216,9 @@ const CustomDrawer = () => {
         </Drawer.Screen>
         {/* Settings */}
         <Drawer.Screen name="Settings">
-          {props => <SettingsScreen {...props} />}
+          {props => (
+            <SettingsScreen {...props} drawerAnimationStyle={animatedStyle} />
+          )}
         </Drawer.Screen>
         {/* About */}
         <Drawer.Screen name="About">
