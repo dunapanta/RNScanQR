@@ -18,12 +18,15 @@ import {useUiStore} from '../stores/useUi';
 import {useIsFocused} from '@react-navigation/native';
 import {COLORS, images, SIZES} from '../constants';
 
+type ITorch = 'on' | 'off' | undefined;
+
 export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
   const isfocused = useIsFocused();
   //Camera
   const devices = useCameraDevices();
   const [frameProcessor, barcodes] = useScanBarcodes([BarcodeFormat.QR_CODE]);
   const [device, setDevice] = useState(devices.back);
+  const [torch, setTorch] = useState<ITorch>('off');
   //Zustand
   const setBarcode = useScanQRStore(state => state.setBarcode);
   const isScanned = useScanQRStore(state => state.isScanned);
@@ -76,6 +79,14 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
     }
   };
 
+  const changeTorchCamera = () => {
+    if (torch === 'on') {
+      setTorch('off');
+    } else {
+      setTorch('on');
+    }
+  };
+
   function CameraFrame() {
     return (
       <Svg height="100%" width="100%">
@@ -122,6 +133,7 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
             enableZoomGesture={true}
             frameProcessor={frameProcessor}
             frameProcessorFps={5}
+            torch={torch}
           />
 
           {/* QR CODE */}
@@ -174,12 +186,22 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
           }}
         />
       </TouchableOpacity>
+      {/* Torch */}
+      <TouchableOpacity
+        style={[styles.optionContainer, {marginTop: 60}]}
+        onPress={changeTorchCamera}>
+        <Image
+          source={images.torch}
+          resizeMode="contain"
+          style={{
+            width: 26,
+            height: 26,
+            tintColor: COLORS.white,
+          }}
+        />
+      </TouchableOpacity>
       {/* Camera */}
       {renderCamera()}
-      {/* <TextButton
-        label="Scan QR"
-        onPress={() => navigation.navigate('QRCameraScreen')}
-      /> */}
 
       {/* Result Modal */}
       {showResultModal && <ResultModal />}
@@ -208,8 +230,8 @@ const styles = StyleSheet.create({
     right: 30,
     justifyContent: 'center',
     alignItems: 'center',
-    width: 50,
-    height: 50,
+    width: 45,
+    height: 45,
     backgroundColor: COLORS.light08,
     borderRadius: SIZES.radius * 2,
     borderWidth: 1,
