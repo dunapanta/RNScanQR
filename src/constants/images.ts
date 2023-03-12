@@ -38,6 +38,7 @@ const history = require('../assets/images/ui/history.png');
 const settings = require('../assets/images/ui/settings.png');
 const about = require('../assets/images/ui/about.png');
 const menu = require('../assets/images/ui/menu.png');
+const rotate = require('../assets/images/ui/rotate.png');
 /*const walkthrough_03_01 = require('../assets/images/walkthrough/walkthrough_03_01.png');
 const walkthrough_03_02 = require('../assets/images/walkthrough/walkthrough_03_02.png');
 const walkthrough_04_01 = require('../assets/images/walkthrough/walkthrough_04_01.png');
@@ -88,6 +89,7 @@ export default {
   settings,
   about,
   menu,
+  rotate,
   /*walkthrough_03_01,
   walkthrough_03_02,
   walkthrough_04_01,

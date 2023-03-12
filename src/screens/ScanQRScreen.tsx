@@ -1,4 +1,4 @@
-import {useCallback, useEffect} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 import {
   Linking,
   View,
@@ -24,7 +24,10 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
   //Camera
   const devices = useCameraDevices();
   const [frameProcessor, barcodes] = useScanBarcodes([BarcodeFormat.QR_CODE]);
-  const device = devices.back;
+  const [device, setDevice] = useState(devices.back);
+  // useRef first render
+  const firstRender = useRef(true);
+  //const device = devices.back;
   //Zustand
   const setBarcode = useScanQRStore(state => state.setBarcode);
   const isScanned = useScanQRStore(state => state.isScanned);
@@ -51,7 +54,11 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
     }
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (!device) {
+      setDevice(devices.back);
+    }
+  }, [device, devices]);
 
   useEffect(() => {
     requestCameraPermission();
@@ -64,6 +71,14 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
       await Linking.openSettings();
     }
   }, []);
+
+  const changeDevicePosition = () => {
+    if (device === devices.back) {
+      setDevice(devices.front);
+    } else {
+      setDevice(devices.back);
+    }
+  };
 
   function CameraFrame() {
     return (
@@ -88,11 +103,11 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
           y="30%"
           width="250"
           height="250"
-          rx="5"
-          ry="5"
+          rx="2"
+          ry="2"
           strokeWidth="3"
           fill="rgba(0,0,0,0.0)"
-          stroke="#ff8855"
+          stroke={COLORS.light}
         />
       </Svg>
     );
@@ -100,13 +115,13 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
 
   function renderCamera() {
     if (!device || device === null) {
-      <View style={{flex: 1, backgroundColor: 'tomato'}}></View>;
+      <View style={{flex: 1, backgroundColor: 'white'}}></View>;
     } else {
       return (
         <View style={{flex: 1}}>
           <Camera
             isActive={isfocused}
-            style={{flex: 1, backgroundColor: COLORS.dark60}}
+            style={{flex: 1, backgroundColor: COLORS.dark80}}
             device={device}
             enableZoomGesture={true}
             frameProcessor={frameProcessor}
@@ -149,6 +164,20 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
           }}
         />
       </TouchableOpacity>
+      {/* Change camera position */}
+      <TouchableOpacity
+        style={styles.optionContainer}
+        onPress={changeDevicePosition}>
+        <Image
+          source={images.rotate}
+          resizeMode="contain"
+          style={{
+            width: 26,
+            height: 26,
+            tintColor: COLORS.white,
+          }}
+        />
+      </TouchableOpacity>
       {/* Camera */}
       {renderCamera()}
       {/* <TextButton
@@ -173,6 +202,20 @@ const styles = StyleSheet.create({
     height: 60,
     backgroundColor: COLORS.light08,
     borderRadius: SIZES.radius,
+    borderWidth: 1,
+    borderColor: COLORS.light80,
+    zIndex: 1,
+  },
+  optionContainer: {
+    position: 'absolute',
+    top: 30,
+    right: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 50,
+    height: 50,
+    backgroundColor: COLORS.light08,
+    borderRadius: SIZES.radius * 2,
     borderWidth: 1,
     borderColor: COLORS.light80,
     zIndex: 1,
