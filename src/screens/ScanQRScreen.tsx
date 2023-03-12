@@ -34,7 +34,6 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
   const isScanned = useScanQRStore(state => state.isScanned);
   const setIsScanned = useScanQRStore(state => state.setIsScanned);
 
-  const scanned = useStorage(state => state.scanned);
   const setScanned = useStorage(state => state.setScanned);
 
   //Result Modal
@@ -51,6 +50,7 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
       barcodes.forEach(async scannedBarcode => {
         if (scannedBarcode.rawValue && scannedBarcode.rawValue !== '') {
           setBarcode(scannedBarcode.rawValue);
+
           setShowResultModal(true);
           Vibration.vibrate();
           setScanned({

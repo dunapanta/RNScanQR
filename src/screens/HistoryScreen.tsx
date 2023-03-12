@@ -1,12 +1,19 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Text, View} from 'react-native';
 import Lottie from 'lottie-react-native';
+import {FlashList} from '@shopify/flash-list';
 
 import {COLORS, FONTS, SIZES} from '../constants';
 import Animated from 'react-native-reanimated';
 import {MenuItem} from '../components/shared';
+import {useStorage} from '../stores/useStorage';
 
 export const HistoryScreen = ({drawerAnimationStyle, navigation}: any) => {
+  const scanned = useStorage(state => state.scanned);
+  useEffect(() => {
+    console.log('escaneados:', scanned);
+  }, [scanned]);
+
   return (
     <Animated.View
       style={{
@@ -49,6 +56,23 @@ export const HistoryScreen = ({drawerAnimationStyle, navigation}: any) => {
           loop
         />
       </>
+      {/* Flatlist History scanned */}
+      <FlashList
+        data={scanned}
+        renderItem={({item}) => (
+          <View
+            style={{
+              backgroundColor: COLORS.light60,
+              borderWidth: 4,
+              borderBottomColor: COLORS.white,
+              height: 100,
+              minWidth: 100,
+            }}>
+            <Text>{item.value}</Text>
+          </View>
+        )}
+        estimatedItemSize={20}
+      />
     </Animated.View>
   );
 };
