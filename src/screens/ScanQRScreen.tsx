@@ -17,11 +17,13 @@ import {useScanQRStore} from '../stores/useScanQRStore';
 import {useUiStore} from '../stores/useUi';
 import {useIsFocused} from '@react-navigation/native';
 import {COLORS, images, SIZES} from '../constants';
+import {useStorage} from '../stores/useStorage';
 
 type ITorch = 'on' | 'off' | undefined;
 
 export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
   const isfocused = useIsFocused();
+
   //Camera
   const devices = useCameraDevices();
   const [frameProcessor, barcodes] = useScanBarcodes([BarcodeFormat.QR_CODE]);
@@ -32,6 +34,9 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
   const isScanned = useScanQRStore(state => state.isScanned);
   const setIsScanned = useScanQRStore(state => state.setIsScanned);
 
+  const scanned = useStorage(state => state.scanned);
+  const setScanned = useStorage(state => state.setScanned);
+
   //Result Modal
   const showResultModal = useUiStore(state => state.showResultModal);
   const setShowResultModal = useUiStore(state => state.setShowResultModal);
@@ -39,6 +44,10 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
   useEffect(() => {
     toggleActiveState();
   }, [barcodes]);
+
+  useEffect(() => {
+    console.log('SCANEADOS:', scanned);
+  }, [scanned]);
 
   const toggleActiveState = async () => {
     if (barcodes && barcodes.length > 0 && !isScanned) {
@@ -48,6 +57,13 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
           setBarcode(scannedBarcode.rawValue);
           setShowResultModal(true);
           Vibration.vibrate();
+          setScanned({
+            id: Math.random().toString(36).substring(0, 7),
+            value: scannedBarcode.rawValue,
+            type: 'url',
+            date: new Date(),
+            isFavorite: false,
+          });
         }
       });
     }
