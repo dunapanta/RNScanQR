@@ -6,7 +6,7 @@ import {COLORS, FONTS, SIZES} from '../constants';
 import Animated from 'react-native-reanimated';
 import {MenuItem} from '../components/shared';
 
-export const FavoritesScreen = ({drawerAnimationStyle, navigation}: any) => {
+export const SettingsScreen = ({drawerAnimationStyle, navigation}: any) => {
   return (
     <Animated.View
       style={{
@@ -18,19 +18,18 @@ export const FavoritesScreen = ({drawerAnimationStyle, navigation}: any) => {
       <MenuItem onPress={() => navigation.toggleDrawer()} />
 
       {/* No History */}
+      <Lottie
+        source={require('../assets/animations/settings.json')}
+        autoPlay
+        loop
+      />
       <View style={{marginTop: 40, alignItems: 'center'}}>
-        <Text style={{color: COLORS.white, ...FONTS.h1}}>Favorite</Text>
+        <Text style={{color: COLORS.white, ...FONTS.h1}}>Settings</Text>
         <Text
           style={{color: COLORS.white, ...FONTS.h3, marginTop: SIZES.margin}}>
           Noting to show yet
         </Text>
       </View>
-      <Lottie
-        source={require('../assets/animations/nothing.json')}
-        autoPlay
-        style={{marginTop: 10}}
-        loop
-      />
     </Animated.View>
   );
 };

@@ -1,35 +1,28 @@
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect} from 'react';
 import {Linking, View, Vibration, TouchableOpacity} from 'react-native';
 import Animated from 'react-native-reanimated';
 import {Camera, useCameraDevices} from 'react-native-vision-camera';
 import {useScanBarcodes, BarcodeFormat} from 'vision-camera-code-scanner';
 import {Svg, Defs, Rect, Mask} from 'react-native-svg';
 
-import TextButton from '../components/shared/TextButton';
 import {ResultModal} from '../components/QRScanner';
-import {MainButton} from '../components/shared';
 import {useScanQRStore} from '../stores/useScanQRStore';
 import {useUiStore} from '../stores/useUi';
 import {useIsFocused} from '@react-navigation/native';
+import {COLORS} from '../constants';
 
 export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
+  const isfocused = useIsFocused();
   //Camera
   const devices = useCameraDevices();
+  const [frameProcessor, barcodes] = useScanBarcodes([BarcodeFormat.QR_CODE]);
+  const device = devices.back;
   //Zustand
-  const barcode = useScanQRStore(state => state.barcode);
   const setBarcode = useScanQRStore(state => state.setBarcode);
   const isScanned = useScanQRStore(state => state.isScanned);
   const setIsScanned = useScanQRStore(state => state.setIsScanned);
-  const isfocused = useIsFocused();
-
-  //Barcode
-  //const [barcode, setBarcode] = useState('');
-  //const [isScanned, setIsScanned] = useState(false);
-  const [frameProcessor, barcodes] = useScanBarcodes([BarcodeFormat.QR_CODE]);
-  const device = devices.back;
 
   //Result Modal
-  //const [showResultModal, setShowResultModal] = useState(false);
   const showResultModal = useUiStore(state => state.showResultModal);
   const setShowResultModal = useUiStore(state => state.setShowResultModal);
 
@@ -49,6 +42,8 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
       });
     }
   };
+
+  useEffect(() => {}, []);
 
   useEffect(() => {
     requestCameraPermission();
@@ -103,7 +98,7 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
         <View style={{flex: 1}}>
           <Camera
             isActive={isfocused}
-            style={{flex: 1, backgroundColor: 'purple'}}
+            style={{flex: 1, backgroundColor: COLORS.dark60}}
             device={device}
             enableZoomGesture={true}
             frameProcessor={frameProcessor}

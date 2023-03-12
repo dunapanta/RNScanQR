@@ -10,8 +10,8 @@ import {COLORS, FONTS, images, SIZES} from '../constants';
 import {ScanQRScreen} from '../screens';
 import {useUiStore} from '../stores/useUi';
 import {FavoritesScreen} from '../screens/FavoritesScreen';
-import {HistoryScreen} from '../screens/History';
-import {SettingsScreen} from '../screens/Settings';
+import {HistoryScreen} from '../screens/HistoryScreen';
+import {SettingsScreen} from '../screens/SettingsScreen';
 import {AboutScreen} from '../screens/About';
 
 const Drawer = createDrawerNavigator();
