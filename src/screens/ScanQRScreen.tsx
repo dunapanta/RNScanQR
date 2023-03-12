@@ -174,7 +174,13 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
       </TouchableOpacity>
       {/* Change camera position */}
       <TouchableOpacity
-        style={styles.optionContainer}
+        style={[
+          styles.optionContainer,
+          {
+            backgroundColor:
+              device === devices.back ? COLORS.light08 : COLORS.light60,
+          },
+        ]}
         onPress={changeDevicePosition}>
         <Image
           source={images.rotate}
@@ -188,7 +194,13 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
       </TouchableOpacity>
       {/* Torch */}
       <TouchableOpacity
-        style={[styles.optionContainer, {marginTop: 60}]}
+        style={[
+          styles.optionContainer,
+          {
+            marginTop: 60,
+            backgroundColor: torch === 'on' ? COLORS.light60 : COLORS.light08,
+          },
+        ]}
         onPress={changeTorchCamera}>
         <Image
           source={images.torch}
