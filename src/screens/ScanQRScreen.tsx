@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useRef, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {
   Linking,
   View,
@@ -17,7 +17,6 @@ import {useScanQRStore} from '../stores/useScanQRStore';
 import {useUiStore} from '../stores/useUi';
 import {useIsFocused} from '@react-navigation/native';
 import {COLORS, images, SIZES} from '../constants';
-import {MenuItem} from '../components/shared';
 
 export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
   const isfocused = useIsFocused();
@@ -25,9 +24,6 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
   const devices = useCameraDevices();
   const [frameProcessor, barcodes] = useScanBarcodes([BarcodeFormat.QR_CODE]);
   const [device, setDevice] = useState(devices.back);
-  // useRef first render
-  const firstRender = useRef(true);
-  //const device = devices.back;
   //Zustand
   const setBarcode = useScanQRStore(state => state.setBarcode);
   const isScanned = useScanQRStore(state => state.isScanned);
