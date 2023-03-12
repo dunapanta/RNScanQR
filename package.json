@@ -13,6 +13,7 @@
     "@react-navigation/drawer": "5.12.5",
     "@react-navigation/native": "^6.1.2",
     "@react-navigation/native-stack": "^6.9.8",
+    "@shopify/flash-list": "^1.4.1",
     "lottie-react-native": "^5.1.4",
     "moti": "^0.22.0",
     "react": "18.2.0",

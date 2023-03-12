@@ -15,22 +15,40 @@ export const HistoryScreen = ({drawerAnimationStyle, navigation}: any) => {
         backgroundColor: COLORS.dark60,
         ...drawerAnimationStyle,
       }}>
-      <MenuItem onPress={() => navigation.toggleDrawer()} />
+      <View style={{position: 'absolute', zIndex: 1, top: 30, left: 20}}>
+        <MenuItem onPress={() => navigation.toggleDrawer()} />
+      </View>
 
       {/* No History */}
-      <View style={{marginTop: 40, alignItems: 'center'}}>
-        <Text style={{color: COLORS.white, ...FONTS.h1}}>History</Text>
-        <Text
-          style={{color: COLORS.white, ...FONTS.h3, marginTop: SIZES.margin}}>
-          Noting to show yet
-        </Text>
-      </View>
-      <Lottie
-        source={require('../assets/animations/nothing.json')}
-        autoPlay
-        style={{marginTop: 10}}
-        loop
-      />
+      <>
+        <View
+          style={{
+            marginTop: SIZES.margin,
+            alignItems: 'center',
+          }}>
+          <View>
+            <Text
+              style={{color: COLORS.white, ...FONTS.h1, textAlign: 'center'}}>
+              History
+            </Text>
+            <Text
+              style={{
+                color: COLORS.white,
+                ...FONTS.h2,
+                textAlign: 'center',
+                marginTop: SIZES.margin * 3,
+              }}>
+              Noting to show yet
+            </Text>
+          </View>
+        </View>
+        <Lottie
+          source={require('../assets/animations/nothing.json')}
+          autoPlay
+          style={{marginTop: 10}}
+          loop
+        />
+      </>
     </Animated.View>
   );
 };

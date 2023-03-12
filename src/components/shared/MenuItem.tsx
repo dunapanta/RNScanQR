@@ -25,8 +25,6 @@ export const MenuItem = ({onPress}: ImenuItemProps) => {
 
 const styles = StyleSheet.create({
   menuContainer: {
-    top: 8,
-    left: 3,
     justifyContent: 'center',
     alignItems: 'center',
     width: 60,

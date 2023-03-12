@@ -45,10 +45,6 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
     toggleActiveState();
   }, [barcodes]);
 
-  useEffect(() => {
-    console.log('SCANEADOS:', scanned);
-  }, [scanned]);
-
   const toggleActiveState = async () => {
     if (barcodes && barcodes.length > 0 && !isScanned) {
       setIsScanned(true);
@@ -58,7 +54,7 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
           setShowResultModal(true);
           Vibration.vibrate();
           setScanned({
-            id: Math.random().toString(36).substring(0, 7),
+            id: Math.random().toString(36).substring(3, 13),
             value: scannedBarcode.rawValue,
             type: 'url',
             date: new Date(),
@@ -241,7 +237,7 @@ const styles = StyleSheet.create({
   menuContainer: {
     position: 'absolute',
     top: 30,
-    left: 30,
+    left: 20,
     justifyContent: 'center',
     alignItems: 'center',
     width: 60,
@@ -255,7 +251,7 @@ const styles = StyleSheet.create({
   optionContainer: {
     position: 'absolute',
     top: 30,
-    right: 30,
+    right: 20,
     justifyContent: 'center',
     alignItems: 'center',
     width: 45,
