@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Text, View} from 'react-native';
+import {Text, Touchable, TouchableOpacity, View} from 'react-native';
 import Lottie from 'lottie-react-native';
 import {FlashList} from '@shopify/flash-list';
 
@@ -28,21 +28,43 @@ export const HistoryScreen = ({drawerAnimationStyle, navigation}: any) => {
 
       {/* No History */}
       {scanned.length > 0 ? (
-        <FlashList
-          data={scanned}
-          renderItem={({item}) => (
-            <View
+        <>
+          <View>
+            <Text
+              style={{color: COLORS.white, ...FONTS.h1, textAlign: 'center'}}>
+              History
+            </Text>
+            <Text
               style={{
-                backgroundColor: COLORS.light60,
-                borderWidth: 2,
-                borderBottomColor: COLORS.white,
-                borderRadius: SIZES.radius,
+                color: COLORS.white,
+                ...FONTS.h2,
+                textAlign: 'center',
+                marginTop: SIZES.margin * 3,
               }}>
-              <Text>{item.value}</Text>
-            </View>
-          )}
-          estimatedItemSize={20}
-        />
+              Your previous scans
+            </Text>
+          </View>
+          <FlashList
+            data={scanned}
+            showsVerticalScrollIndicator={false}
+            renderItem={({item}) => (
+              <TouchableOpacity
+                style={{
+                  backgroundColor: COLORS.dark80,
+                  borderWidth: 2,
+                  borderBottomColor: COLORS.white,
+                  borderRadius: SIZES.radius,
+                  minHeight: SIZES.padding * 4,
+                }}
+                activeOpacity={0.8}>
+                <Text style={{color: COLORS.white, ...FONTS.h3}}>
+                  {item.value}
+                </Text>
+              </TouchableOpacity>
+            )}
+            estimatedItemSize={20}
+          />
+        </>
       ) : (
         <>
           <View

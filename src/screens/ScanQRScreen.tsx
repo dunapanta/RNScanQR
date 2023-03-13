@@ -26,7 +26,9 @@ export const ScanQRScreen = ({navigation, drawerAnimationStyle}: any) => {
 
   //Camera
   const devices = useCameraDevices();
-  const [frameProcessor, barcodes] = useScanBarcodes([BarcodeFormat.QR_CODE]);
+  const [frameProcessor, barcodes] = useScanBarcodes([
+    BarcodeFormat.ALL_FORMATS,
+  ]);
   const [device, setDevice] = useState(devices.back);
   const [torch, setTorch] = useState<ITorch>('off');
   //Zustand
